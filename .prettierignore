@@ -1,0 +1,24 @@
+# dependencies
+node_modules
+package-lock.json
+yarn.lock
+
+# testing
+coverage
+coverage.json
+
+# docs
+docs
+
+# production
+dist
+build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
