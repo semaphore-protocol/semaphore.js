@@ -58,7 +58,6 @@
     <th>Package</th>
     <th>Version</th>
     <th>Downloads</th>
-    <th>Size</th>
     <tbody>
         <tr>
             <td>
@@ -79,12 +78,6 @@
                 <!-- Downloads -->
                 <a href="https://npmjs.org/package/@semaphore-protocol/identity">
                     <img src="https://img.shields.io/npm/dm/@semaphore-protocol/identity.svg?style=flat-square" alt="Downloads" />
-                </a>
-            </td>
-            <td>
-                <!-- Size -->
-                <a href="https://bundlephobia.com/package/@semaphore-protocol/identity">
-                    <img src="https://img.shields.io/bundlephobia/minzip/@semaphore-protocol/identity" alt="npm bundle size (scoped)" />
                 </a>
             </td>
         </tr>
@@ -109,7 +102,6 @@
                     <img src="https://img.shields.io/npm/dm/@semaphore-protocol/proof.svg?style=flat-square" alt="Downloads" />
                 </a>
             </td>
-            <td></td>
         </tr>
     <tbody>
 </table>

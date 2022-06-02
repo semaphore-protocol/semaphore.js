@@ -18,9 +18,6 @@
     <a href="https://npmjs.org/package/@semaphore-protocol/identity">
         <img alt="Downloads" src="https://img.shields.io/npm/dm/@semaphore-protocol/identity.svg?style=flat-square" />
     </a>
-    <a href="https://bundlephobia.com/package/@semaphore-protocol/identity">
-        <img alt="npm bundle size (scoped)" src="https://img.shields.io/bundlephobia/minzip/@semaphore-protocol/identity" />
-    </a>
     <a href="https://eslint.org/">
         <img alt="Linter eslint" src="https://img.shields.io/badge/linter-eslint-8080f2?style=flat-square&logo=eslint" />
     </a>
