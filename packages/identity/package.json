@@ -15,8 +15,8 @@
         "LICENSE",
         "README.md"
     ],
-    "repository": "https://github.com/privacy-scaling-explorations/zk-kit",
-    "homepage": "https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/proof",
+    "repository": "https://github.com/semaphore-protocol/semaphore.js",
+    "homepage": "https://github.com/semaphore-protocol/semaphore.js/tree/main/packages/proof",
     "scripts": {
         "build:watch": "rollup -c rollup.config.ts -w --configPlugin typescript",
         "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript",
