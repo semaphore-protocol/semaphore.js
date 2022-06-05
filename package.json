@@ -7,14 +7,11 @@
     "bugs": "https://github.com/semaphore-protocol/semaphore.js/issues",
     "private": true,
     "scripts": {
-        "install": "yarn bootstrap && yarn build",
-        "bootstrap": "lerna bootstrap",
         "build": "lerna run build",
         "build:watch": "lerna run --parallel build:watch -- -- --watch",
         "test": "jest --coverage",
         "test:watch": "jest --coverage --watch",
-        "test:prod": "yarn lint && yarn test && lerna run test",
-        "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+        "lint": "eslint . --ext .js,.ts",
         "prettier": "prettier -c .",
         "prettier:write": "prettier -w .",
         "publish:fp": "lerna publish from-package",
@@ -30,10 +27,14 @@
         "zero-knowledge",
         "semaphore"
     ],
+    "workspaces": [
+        "packages/*"
+    ],
+    "packageManager": "yarn@3.2.1",
     "devDependencies": {
         "@babel/core": "^7.16.7",
         "@babel/preset-env": "^7.16.8",
-        "@babel/preset-typescript": "^7.16.7",
+        "@babel/preset-typescript": "^7.17.12",
         "@commitlint/cli": "^16.0.2",
         "@commitlint/config-conventional": "^16.0.0",
         "@rollup/plugin-typescript": "^8.3.0",
