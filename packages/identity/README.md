@@ -66,8 +66,8 @@ import { Identity } from "@semaphore-protocol/identity"
 // Trapdoor and nullifier are generated randomly.
 const identity1 = new Identity()
 
-// Trapdoor and nullifier are generated deterministically from a message.
-const identity2 = new Identity("message")
+// Trapdoor and nullifier are generated deterministically from a secret message.
+const identity2 = new Identity("secret-message")
 
 // Trapdoor and nullifier are generated from an existing identity.
 const identity3 = new Identity(identity1.toString())
