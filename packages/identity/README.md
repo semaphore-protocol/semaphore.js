@@ -58,37 +58,35 @@ yarn add @semaphore-protocol/identity
 
 ## 📜 Usage
 
-### Creating an identity with a random strategy:
+\# **new Identity**(identityOrMessage?: _string_): _Identity_
 
 ```typescript
 import { Identity } from "@semaphore-protocol/identity"
-// const { Identity } = require("@semaphore-protocol/identity") // with commonJS
 
-const identity = new Identity()
+// Trapdoor and nullifier are generated randomly.
+const identity1 = new Identity()
 
+// Trapdoor and nullifier are generated deterministically from a message.
+const identity2 = new Identity("message")
+
+// Trapdoor and nullifier are generated from an existing identity.
+const identity3 = new Identity(identity1.toString())
+```
+
+\# **getTrapdoor**(): _bigint_
+
+```typescript
 const trapdoor = identity.getTrapdoor()
+```
+
+\# **getNullifier**(): _bigint_
+
+```typescript
 const nullifier = identity.getNullifier()
-const secret = identity.getSecret()
-const multipartSecret = identity.getMultipartSecret()
-
-const identityCommitment = identity.genIdentityCommitment()
 ```
 
-### Creating an identity with a message strategy:
+\# **generateCommitment**(): _bigint_
 
 ```typescript
-import { Identity, Strategy } from "@semaphore-protocol/identity"
-
-const identity = new Identity(Strategy.MESSAGE, "message")
-```
-
-### Creating an identity with a serialized strategy:
-
-```typescript
-import { Identity, Strategy } from "@semaphore-protocol/identity"
-
-const identity = new Identity()
-const serializedIdentity = identity.serializeIdentity()
-
-const identity2 = new Identity(Strategy.SERIALIZED, serializedIdentity)
+const commitment = identity.generateCommitment()
 ```

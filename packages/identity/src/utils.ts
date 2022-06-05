@@ -21,3 +21,18 @@ export function sha256(message: string): string {
 export function genRandomNumber(numberOfBytes = 31): bigint {
     return BigNumber.from(randomBytes(numberOfBytes)).toBigInt()
 }
+
+/**
+ * Checks if a string is a JSON.
+ * @param jsonString The JSON string.
+ * @returns True or false.
+ */
+export function isJson(jsonString: string) {
+    try {
+        JSON.parse(jsonString)
+    } catch (error) {
+        return false
+    }
+
+    return true
+}

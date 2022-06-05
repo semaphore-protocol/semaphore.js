@@ -1,3 +1,4 @@
-import Identity, { Strategy } from "./identity"
+import Identity from "./identity"
 
-export { Identity, Strategy }
+// eslint-disable-next-line import/prefer-default-export
+export { Identity }

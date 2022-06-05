@@ -1,82 +1,39 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import { poseidon } from "circomlibjs"
-import { SerializedIdentity } from "./types"
-import { genRandomNumber, sha256 } from "./utils"
-
-// The strategy used to generate the Identity.
-export enum Strategy {
-    RANDOM, // Identity is generated randomly.
-    MESSAGE, // Identity is generated from a message.
-    SERIALIZED // Identity parameters are passed from outside.
-}
+import checkParameter from "./checkParameter"
+import { genRandomNumber, isJson, sha256 } from "./utils"
 
 export default class Identity {
-    private _identityTrapdoor: bigint
-    private _identityNullifier: bigint
-
-    private _secret: bigint[] = []
+    private _trapdoor: bigint
+    private _nullifier: bigint
 
     /**
      * Initializes the class attributes based on the strategy passed as parameter.
-     * @param strategy The strategy for identity generation.
-     * @param metadata Additional data needed to create identity for given strategy.
+     * @param identityOrMessage Additional data needed to create identity for given strategy.
      */
-    constructor(strategy: Strategy = Strategy.RANDOM, metadata?: string | SerializedIdentity) {
-        switch (strategy) {
-            case Strategy.RANDOM: {
-                this._identityTrapdoor = genRandomNumber()
-                this._identityNullifier = genRandomNumber()
-                this._secret = [this._identityNullifier, this._identityTrapdoor]
-                break
-            }
-            case Strategy.MESSAGE: {
-                if (!metadata) {
-                    throw new Error("The message is not defined")
-                }
+    constructor(identityOrMessage?: string) {
+        if (identityOrMessage === undefined) {
+            this._trapdoor = genRandomNumber()
+            this._nullifier = genRandomNumber()
 
-                if (typeof metadata !== "string") {
-                    throw new Error("The message is not a string")
-                }
-
-                const messageHash = sha256(metadata)
-
-                this._identityTrapdoor = BigNumber.from(`0x${sha256(`${messageHash}identity_trapdoor`)}`).toBigInt()
-                this._identityNullifier = BigNumber.from(`0x${sha256(`${messageHash}identity_nullifier`)}`).toBigInt()
-                this._secret = [this._identityNullifier, this._identityTrapdoor]
-                break
-            }
-            case Strategy.SERIALIZED: {
-                if (!metadata) {
-                    throw new Error("The serialized identity is not defined")
-                }
-
-                if (typeof metadata === "string") {
-                    try {
-                        metadata = JSON.parse(metadata) as SerializedIdentity
-                    } catch (error) {
-                        throw new Error("The serialized identity cannot be parsed")
-                    }
-                }
-
-                if (
-                    !("identityNullifier" in metadata) ||
-                    !("identityTrapdoor" in metadata) ||
-                    !("secret" in metadata)
-                ) {
-                    throw new Error("The serialized identity does not contain the right parameter")
-                }
-
-                const { identityNullifier, identityTrapdoor, secret } = metadata
-
-                this._identityNullifier = BigNumber.from(`0x${identityNullifier}`).toBigInt()
-                this._identityTrapdoor = BigNumber.from(`0x${identityTrapdoor}`).toBigInt()
-                this._secret = secret.map((item) => BigNumber.from(`0x${item}`).toBigInt())
-
-                break
-            }
-            default:
-                throw new Error("The provided strategy is not supported")
+            return
         }
+
+        checkParameter(identityOrMessage, "identityOrMessage", "string")
+
+        if (!isJson(identityOrMessage)) {
+            const messageHash = sha256(identityOrMessage)
+
+            this._trapdoor = BigNumber.from(`0x${sha256(`${messageHash}identity_trapdoor`)}`).toBigInt()
+            this._nullifier = BigNumber.from(`0x${sha256(`${messageHash}identity_nullifier`)}`).toBigInt()
+
+            return
+        }
+
+        const [trapdoor, nullifier] = JSON.parse(identityOrMessage)
+
+        this._trapdoor = BigNumber.from(`0x${trapdoor}`).toBigInt()
+        this._nullifier = BigNumber.from(`0x${nullifier}`).toBigInt()
     }
 
     /**
@@ -84,7 +41,7 @@ export default class Identity {
      * @returns The identity trapdoor.
      */
     public getTrapdoor(): bigint {
-        return this._identityTrapdoor
+        return this._trapdoor
     }
 
     /**
@@ -92,44 +49,23 @@ export default class Identity {
      * @returns The identity nullifier.
      */
     public getNullifier(): bigint {
-        return this._identityNullifier
+        return this._nullifier
     }
 
     /**
-     * Returns the secret.
-     * @returns The secret.
-     */
-    public getSecret(): bigint[] {
-        return this._secret
-    }
-
-    /**
-     * Returns the Poseidon hash of the secret.
-     * @returns The hash of the secret.
-     */
-    public getSecretHash(): bigint {
-        return poseidon(this._secret)
-    }
-
-    /**
-     * Generates the identity commitment from the secret.
+     * Generates the identity commitment from trapdoor and nullifier.
      * @returns identity commitment
      */
-    public genIdentityCommitment(): bigint {
-        return poseidon([this.getSecretHash()])
+    public generateCommitment(): bigint {
+        return poseidon([poseidon([this._nullifier, this._trapdoor])])
     }
 
     /**
-     * Serializes the class attributes and returns a stringified object.
-     * @returns The stringified serialized identity.
+     * Returns a JSON string with trapdoor and nullifier. It can be used
+     * to export the identity and reuse it later.
+     * @returns The string representation of the identity.
      */
-    public serializeIdentity(): string {
-        const data: SerializedIdentity = {
-            identityNullifier: this._identityNullifier.toString(16),
-            identityTrapdoor: this._identityTrapdoor.toString(16),
-            secret: this._secret.map((item) => item.toString(16))
-        }
-
-        return JSON.stringify(data)
+    public toString(): string {
+        return JSON.stringify([this._trapdoor.toString(16), this._nullifier.toString(16)])
     }
 }
