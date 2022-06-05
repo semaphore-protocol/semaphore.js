@@ -15,6 +15,9 @@
     <a href="https://github.com/semaphore-protocol/semaphore.js/actions?query=workflow%3Atest">
         <img alt="GitHub Workflow test" src="https://img.shields.io/github/workflow/status/semaphore-protocol/semaphore.js/test?label=test&style=flat-square&logo=github">
     </a>
+    <a href="https://github.com/semaphore-protocol/semaphore.js/actions?query=workflow%3Astyle">
+        <img alt="GitHub Workflow style" src="https://img.shields.io/github/workflow/status/semaphore-protocol/semaphore.js/style?label=style&style=flat-square&logo=github">
+    </a>
     <a href="https://coveralls.io/github/semaphore-protocol/semaphore.js">
         <img alt="Coveralls" src="https://img.shields.io/coveralls/github/semaphore-protocol/semaphore.js?label=coverage (ts)&style=flat-square&logo=coveralls">
     </a>
