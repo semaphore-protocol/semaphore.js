@@ -37,7 +37,7 @@
         "@ethersproject/bytes": "^5.5.0",
         "@ethersproject/solidity": "^5.5.0",
         "@ethersproject/strings": "^5.5.0",
-        "@semaphore-protocol/identity": "workspace:^",
+        "@semaphore-protocol/identity": "0.2.1",
         "@zk-kit/incremental-merkle-tree": "^0.4.3",
         "circomlibjs": "0.0.8",
         "snarkjs": "^0.4.13"
