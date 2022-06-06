@@ -29,6 +29,18 @@ describe("Identity", () => {
             expect(identity1.getNullifier()).toBe(identity2.getNullifier())
         })
 
+        it("Should create deterministic identities from number/boolean messages", () => {
+            const identity1 = new Identity("true")
+            const identity2 = new Identity("true")
+            const identity3 = new Identity("7")
+            const identity4 = new Identity("7")
+
+            expect(identity1.getTrapdoor()).toBe(identity2.getTrapdoor())
+            expect(identity1.getNullifier()).toBe(identity2.getNullifier())
+            expect(identity3.getTrapdoor()).toBe(identity4.getTrapdoor())
+            expect(identity3.getNullifier()).toBe(identity4.getNullifier())
+        })
+
         it("Should not recreate an existing invalid identity", () => {
             const fun = () => new Identity('[true, "01323"]')
 

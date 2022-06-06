@@ -27,12 +27,10 @@ export function genRandomNumber(numberOfBytes = 31): bigint {
  * @param jsonString The JSON string.
  * @returns True or false.
  */
-export function isJson(jsonString: string) {
+export function isJsonArray(jsonString: string) {
     try {
-        JSON.parse(jsonString)
+        return Array.isArray(JSON.parse(jsonString))
     } catch (error) {
         return false
     }
-
-    return true
 }
