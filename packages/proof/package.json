@@ -21,7 +21,7 @@
         "build:watch": "rollup -c rollup.config.ts -w --configPlugin typescript",
         "build": "rimraf dist && rollup -c rollup.config.ts --configPlugin typescript",
         "prepublishOnly": "yarn build",
-        "docs": "typedoc src/index.ts --out ../../docs/protocols"
+        "docs": "typedoc src/index.ts --out ../../docs/proof"
     },
     "publishConfig": {
         "access": "public"
