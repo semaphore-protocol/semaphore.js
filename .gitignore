@@ -31,9 +31,6 @@ coverage.json
 # Dependency directories
 node_modules/
 
-# Parcel cache
-.parcel-cache
-
 # TypeScript cache
 *.tsbuildinfo
 
@@ -59,9 +56,6 @@ docs/*
 !docs/CNAME
 !docs/index.html
 
-# Hardhat
-cache
-
 # dotenv environment variable files
 .env
 .env.development.local
@@ -83,5 +77,4 @@ cache
 !.yarn/versions
 
 # Other
-benchmarks/results
-zkeyFiles
+snark-artifacts
