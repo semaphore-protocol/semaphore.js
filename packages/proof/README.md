@@ -58,30 +58,80 @@ yarn add @semaphore-protocol/proof
 
 ## 📜 Usage
 
-### Generating Merkle proofs
+\# **createMerkleTree**(depth: _number_, zeroValue: _BigNumberish_, leaves: _BigNumberish\[]_): _MerkleProof_
 
 ```typescript
-import { Identity } from "@semaphore-protocol/identity"
-import { generateMerkleProof } from "@semaphore-protocol/proof"
+import { createMerkleTree } from "@semaphore-protocol/proof"
 
 const depth = 20
 const zeroValue = BigInt(0)
-const identity = new Identity()
-const identityCommitment = identity.genIdentityCommitment()
-const identityCommitments = [BigInt(1), identityCommitment, BigInt(2)]
+const leaves = [BigInt(1), BigInt(2)]
 
-const merkleProof = generateMerkleProof(depth, zeroValue, identityCommitments, 1)
+const merkleTree = createMerkleTree(treeDepth, zeroValue, leaves)
 ```
 
-### Creating Semaphore proofs
+\# **createMerkleProof**(depth: _number_, zeroValue: _BigNumberish_, leaves: _BigNumberish\[]_, leaf: _BigNumberish_): _MerkleProof_
 
 ```typescript
-import { Semaphore } from "@semaphore-protocol/protocols"
+import { Identity } from "@semaphore-protocol/identity"
+import { createMerkleProof } from "@semaphore-protocol/proof"
 
-const signal = "Hello world"
+const depth = 20
+const zeroValue = BigInt(0)
+
+const identity = new Identity()
+
+const leaf = identity.genIdentityCommitment()
+const leaves = [BigInt(1), identityCommitment, BigInt(2)]
+
+const merkleProof = createMerkleProof(treeDepth, zeroValue, leaves, leaf)
+```
+
+\# **generateProof**(identity: _Identity_, merkleProof: _MerkleProof_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts, _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
+
+```typescript
+import { Identity } from "@semaphore-protocol/identity"
+import { generateProof } from "@semaphore-protocol/proof"
+
 const externalNullifier = BigInt(1)
-const witness = Semaphore.genWitness(identity, merkleProof, externalNullifier, signal)
+const signal = "Hello world"
 
-const { proof, publicSignals } = await Semaphore.genProof(witness, "./semaphore.wasm", "./semaphore.zkey")
-const solidityProof = Semaphore.packToSolidityProof(proof)
+const fullProof = await generateProof(identity, merkleProof, externalNullifier, signal, {
+    zkeyFilePath: "./semaphore.zkey",
+    wasmFilePath: "./semaphore.wasm"
+})
+```
+
+\# **verifyProof**(verificationKey: _any_, fullProof: _FullProof_): Promise\<_boolean_>
+
+```typescript
+import { verifyProof } from "@semaphore-protocol/proof"
+
+const verificationKey = JSON.parse(fs.readFileSync("/semaphore.json", "utf-8"))
+
+await verifyProof(verificationKey, fullProof)
+```
+
+\# **packToSolidityProof**(proof: _Proof_): _SolidityProof_
+
+```typescript
+import { packToSolidityProof } from "@semaphore-protocol/proof"
+
+const solidityProof = packToSolidityProof(fullProof.proof)
+```
+
+\# **generateNullifierHash**(externalNullifier: _BigNumberish_, identityNullifier: _BigNumberish_): _bigint_
+
+```typescript
+import { generateNullifierHash } from "@semaphore-protocol/proof"
+
+const nullifierHash = generateNullifierHash(externalNullifier, identity.getNullifier())
+```
+
+\# **generateSignalHash**(signal: _string_): _bigint_
+
+```typescript
+import { generateSignalHash } from "@semaphore-protocol/proof"
+
+const signalHash = generateSignalHash(signal)
 ```

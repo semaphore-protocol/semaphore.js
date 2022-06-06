@@ -1,41 +1,37 @@
-export type StrBigInt = string | bigint
+export type BigNumberish = string | bigint
+
+export type SnarkArtifacts = {
+    wasmFilePath: string
+    zkeyFilePath: string
+}
 
 export type Proof = {
-    pi_a: StrBigInt[]
-    pi_b: StrBigInt[][]
-    pi_c: StrBigInt[]
+    pi_a: BigNumberish[]
+    pi_b: BigNumberish[][]
+    pi_c: BigNumberish[]
     protocol: string
     curve: string
 }
 
-export type SemaphoreFullProof = {
+export type FullProof = {
     proof: Proof
-    publicSignals: SemaphorePublicSignals
+    publicSignals: PublicSignals
 }
 
-export type SemaphorePublicSignals = {
-    merkleRoot: StrBigInt
-    nullifierHash: StrBigInt
-    signalHash: StrBigInt
-    externalNullifier: StrBigInt
+export type PublicSignals = {
+    merkleRoot: BigNumberish
+    nullifierHash: BigNumberish
+    signalHash: BigNumberish
+    externalNullifier: BigNumberish
 }
 
-export type SemaphoreSolidityProof = [
-    StrBigInt,
-    StrBigInt,
-    StrBigInt,
-    StrBigInt,
-    StrBigInt,
-    StrBigInt,
-    StrBigInt,
-    StrBigInt
+export type SolidityProof = [
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    BigNumberish,
+    BigNumberish
 ]
-
-export type SemaphoreWitness = {
-    identityNullifier: StrBigInt
-    identityTrapdoor: StrBigInt
-    treeSiblings: StrBigInt[]
-    treePathIndices: number[]
-    externalNullifier: StrBigInt
-    signalHash: StrBigInt
-}
