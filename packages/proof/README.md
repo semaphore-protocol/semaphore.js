@@ -87,7 +87,7 @@ const leaves = [BigInt(1), identityCommitment, BigInt(2)]
 const merkleProof = createMerkleProof(treeDepth, zeroValue, leaves, leaf)
 ```
 
-\# **generateProof**(identity: _Identity_, merkleProof: _MerkleProof_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts, _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
+\# **generateProof**(identity: _Identity_, merkleProof: _MerkleProof_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
 
 ```typescript
 import { Identity } from "@semaphore-protocol/identity"
