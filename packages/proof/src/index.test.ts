@@ -35,7 +35,7 @@ describe("Proof", () => {
             await download(`${snarkArtifactsUrl}/semaphore.zkey`, snarkArtifactsPath)
             await download(`${snarkArtifactsUrl}/semaphore.json`, snarkArtifactsPath)
         }
-    })
+    }, 10000)
 
     afterAll(async () => {
         await curve.terminate()
