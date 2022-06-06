@@ -27,9 +27,6 @@
     <a href="https://prettier.io/">
         <img alt="Code style prettier" src="https://img.shields.io/badge/code%20style-prettier-f8bc45?style=flat-square&logo=prettier">
     </a>
-    <a href="https://lerna.js.org/">
-        <img alt="Lerna" src="https://img.shields.io/badge/maintained%20with-lerna-8f6899.svg?style=flat-square">
-    </a>
 
 </p>
 
@@ -126,5 +123,4 @@ $ yarn prettier # Syntax check with Prettier (yarn prettier:fix to fix errors).
 $ yarn commit # Interactive Commitizen commit.
 $ yarn test # Test all packages (with common coverage).
 $ yarn build # Create a JS build for each package.
-$ yarn publish:fp # Publish packages on npm.
 ```
