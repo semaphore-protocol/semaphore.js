@@ -1,6 +1,7 @@
 import { BigNumber } from "@ethersproject/bignumber"
 import { randomBytes } from "@ethersproject/random"
-import _sha256 from "crypto-js/sha256"
+import { sha256 as _sha256 } from "@ethersproject/sha2"
+import { toUtf8Bytes } from "@ethersproject/strings"
 
 /**
  * Returns an hexadecimal sha256 hash of the message passed as parameter.
@@ -8,9 +9,9 @@ import _sha256 from "crypto-js/sha256"
  * @returns The hexadecimal hash of the message.
  */
 export function sha256(message: string): string {
-    const hash = _sha256(message)
+    const hash = _sha256(toUtf8Bytes(message))
 
-    return hash.toString()
+    return hash
 }
 
 /**

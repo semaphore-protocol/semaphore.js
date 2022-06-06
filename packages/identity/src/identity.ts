@@ -22,10 +22,10 @@ export default class Identity {
         checkParameter(identityOrMessage, "identityOrMessage", "string")
 
         if (!isJsonArray(identityOrMessage)) {
-            const messageHash = sha256(identityOrMessage)
+            const messageHash = sha256(identityOrMessage).slice(2)
 
-            this._trapdoor = BigNumber.from(`0x${sha256(`${messageHash}identity_trapdoor`)}`).toBigInt()
-            this._nullifier = BigNumber.from(`0x${sha256(`${messageHash}identity_nullifier`)}`).toBigInt()
+            this._trapdoor = BigNumber.from(sha256(`${messageHash}identity_trapdoor`)).toBigInt()
+            this._nullifier = BigNumber.from(sha256(`${messageHash}identity_nullifier`)).toBigInt()
 
             return
         }
