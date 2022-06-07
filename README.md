@@ -108,19 +108,74 @@
 
 ## 🛠 Install
 
-Clone this repository and install the dependencies:
+Clone this repository:
 
 ```bash
-$ git clone https://github.com/semaphore-protocol/semaphore.js.git
-$ cd semaphore.js && yarn
+git clone https://github.com/semaphore-protocol/semaphore.js.git
+```
+
+and install the dependencies:
+
+```bash
+cd semaphore.js && yarn
 ```
 
 ## 📜 Usage
 
+### Code quality and formatting
+
+Run [ESLint](https://eslint.org/) to analyze the code and catch bugs:
+
 ```bash
-$ yarn lint # Syntax check with ESLint (yarn lint:fix to fix errors).
-$ yarn prettier # Syntax check with Prettier (yarn prettier:fix to fix errors).
-$ yarn commit # Interactive Commitizen commit.
-$ yarn test # Test all packages (with common coverage).
-$ yarn build # Create a JS build for each package.
+yarn lint
 ```
+
+Run [Prettier](https://prettier.io/) to check formatting rules:
+
+```bash
+yarn prettier
+```
+
+or to automatically format the code:
+
+```bash
+yarn prettier:write
+```
+
+### Conventional commits
+
+Semaphore uses [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/). A [command line utility](https://github.com/commitizen/cz-cli) to commit using the correct syntax can be used by running:
+
+```bash
+yarn commit
+```
+
+It will also automatically check that the modified files comply with ESLint and Prettier rules.
+
+### Testing
+
+Run [Jest](https://jestjs.io/) to test the code with coverage:
+
+```bash
+yarn test
+```
+
+### Build packages
+
+Run [Rollup](https://www.rollupjs.org) to build all the packages:
+
+```bash
+yarn build
+```
+
+A `dist` folder will be created inside each package.
+
+### Documentation
+
+Run [TypeDoc](https://typedoc.org/) to generate a documentation website for each package:
+
+```bash
+yarn docs
+```
+
+The output will be placed on the `docs` folder.
