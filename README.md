@@ -50,8 +50,8 @@
     </h4>
 </div>
 
-| Semaphore provides a set of JavaScript libraries to generate zero-knowledge proofs and verify them with minimal effort. |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Semaphore provides a set of JavaScript libraries to create identities, generate zero-knowledge proofs and verify them with minimal effort. |
+| ------------------------------------------------------------------------------------------------------------------------------------------ |
 
 ---
 
