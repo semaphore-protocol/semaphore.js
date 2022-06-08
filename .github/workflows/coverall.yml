@@ -1,13 +1,12 @@
-name: test
+name: coverall
 
 on:
-    pull_request:
     push:
         branches:
             - main
 
 jobs:
-    test:
+    coverall:
         runs-on: ubuntu-latest
 
         steps:
@@ -37,3 +36,8 @@ jobs:
 
             - name: Test libraries
               run: yarn test
+
+            - name: Coveralls
+              uses: coverallsapp/github-action@master
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
