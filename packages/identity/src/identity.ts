@@ -1,4 +1,3 @@
-import { BigNumber } from "@ethersproject/bignumber"
 import { poseidon } from "circomlibjs"
 import checkParameter from "./checkParameter"
 import { genRandomNumber, isJsonArray, sha256 } from "./utils"
@@ -24,16 +23,16 @@ export default class Identity {
         if (!isJsonArray(identityOrMessage)) {
             const messageHash = sha256(identityOrMessage).slice(2)
 
-            this._trapdoor = BigNumber.from(sha256(`${messageHash}identity_trapdoor`)).toBigInt()
-            this._nullifier = BigNumber.from(sha256(`${messageHash}identity_nullifier`)).toBigInt()
+            this._trapdoor = BigInt(sha256(`${messageHash}identity_trapdoor`))
+            this._nullifier = BigInt(sha256(`${messageHash}identity_nullifier`))
 
             return
         }
 
         const [trapdoor, nullifier] = JSON.parse(identityOrMessage)
 
-        this._trapdoor = BigNumber.from(`0x${trapdoor}`).toBigInt()
-        this._nullifier = BigNumber.from(`0x${nullifier}`).toBigInt()
+        this._trapdoor = BigInt(`0x${trapdoor}`)
+        this._nullifier = BigInt(`0x${nullifier}`)
     }
 
     /**

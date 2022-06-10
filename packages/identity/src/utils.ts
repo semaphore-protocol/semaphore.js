@@ -1,7 +1,4 @@
-import { BigNumber } from "@ethersproject/bignumber"
-import { randomBytes } from "@ethersproject/random"
-import { sha256 as _sha256 } from "@ethersproject/sha2"
-import { toUtf8Bytes } from "@ethersproject/strings"
+import { createHash, randomBytes } from "crypto"
 
 /**
  * Returns an hexadecimal sha256 hash of the message passed as parameter.
@@ -9,9 +6,7 @@ import { toUtf8Bytes } from "@ethersproject/strings"
  * @returns The hexadecimal hash of the message.
  */
 export function sha256(message: string): string {
-    const hash = _sha256(toUtf8Bytes(message))
-
-    return hash
+    return `0x${  createHash("sha256").update(Buffer.from(message)).digest("hex")}`
 }
 
 /**
@@ -20,7 +15,7 @@ export function sha256(message: string): string {
  * @returns The generated random number.
  */
 export function genRandomNumber(numberOfBytes = 31): bigint {
-    return BigNumber.from(randomBytes(numberOfBytes)).toBigInt()
+    return BigInt(`0x${  randomBytes(numberOfBytes).toString("hex")}`)
 }
 
 /**

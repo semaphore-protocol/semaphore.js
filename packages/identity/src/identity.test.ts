@@ -1,4 +1,3 @@
-import { BigNumber } from "@ethersproject/bignumber"
 import Identity from "./identity"
 
 describe("Identity", () => {
@@ -44,7 +43,7 @@ describe("Identity", () => {
         it("Should not recreate an existing invalid identity", () => {
             const fun = () => new Identity('[true, "01323"]')
 
-            expect(fun).toThrow("invalid BigNumber string")
+            expect(fun).toThrow("Cannot convert 0xtrue to a BigInt")
         })
 
         it("Should recreate an existing identity", () => {
@@ -107,8 +106,8 @@ describe("Identity", () => {
 
             const [trapdoor, nullifier] = JSON.parse(identity.toString())
 
-            expect(BigNumber.from(`0x${trapdoor}`).toBigInt()).toBe(identity.getTrapdoor())
-            expect(BigNumber.from(`0x${nullifier}`).toBigInt()).toBe(identity.getNullifier())
+            expect(BigInt(`0x${trapdoor}`)).toBe(identity.getTrapdoor())
+            expect(BigInt(`0x${nullifier}`)).toBe(identity.getNullifier())
         })
     })
 })
