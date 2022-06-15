@@ -2258,7 +2258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semaphore-protocol/group@0.1.1, @semaphore-protocol/group@workspace:packages/group":
+"@semaphore-protocol/group@0.1.2, @semaphore-protocol/group@workspace:packages/group":
   version: 0.0.0-use.local
   resolution: "@semaphore-protocol/group@workspace:packages/group"
   dependencies:
@@ -2292,7 +2292,7 @@ __metadata:
     "@ethersproject/bytes": ^5.5.0
     "@ethersproject/solidity": ^5.5.0
     "@ethersproject/strings": ^5.5.0
-    "@semaphore-protocol/group": 0.1.1
+    "@semaphore-protocol/group": 0.1.2
     "@semaphore-protocol/identity": 0.2.2
     circomlibjs: 0.0.8
     download: ^8.0.0
