@@ -80,16 +80,4 @@ describe("Group", () => {
             expect(proof.leaf).toBe(BigInt(1))
         })
     })
-
-    describe("# verifyProofOfMembership", () => {
-        it("Should verify a proof of membership", () => {
-            const group = new Group()
-            group.addMembers([BigInt(1), BigInt(3)])
-            const proof = group.generateProofOfMembership(0)
-
-            const response = group.verifyProofOfMembership(proof)
-
-            expect(response).toBeTruthy()
-        })
-    })
 })

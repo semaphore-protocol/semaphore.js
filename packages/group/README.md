@@ -117,9 +117,3 @@ group.indexOf(commitment) // 0
 ```typescript
 const proof = group.generateProofOfMembership(0)
 ```
-
-\# **verifyProofOfMembership**(proof: _MerkleProof_): _boolean_
-
-```typescript
-group.verifyProofOfMembership(proof) // true
-```

@@ -91,15 +91,10 @@ export default class Group {
      * @returns Proof object.
      */
     generateProofOfMembership(index: number): MerkleProof {
-        return this._merkleTree.createProof(index)
-    }
+        const merkleProof = this._merkleTree.createProof(index)
 
-    /**
-     * Verifies a proof of membership and return true or false.
-     * @param proof Proof to be verified.
-     * @returns True or false.
-     */
-    verifyProofOfMembership(proof: MerkleProof): boolean {
-        return this._merkleTree.verifyProof(proof)
+        merkleProof.siblings = merkleProof.siblings.map((s) => s[0])
+
+        return merkleProof
     }
 }
