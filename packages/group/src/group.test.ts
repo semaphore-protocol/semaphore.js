@@ -1,126 +1,95 @@
-import { poseidon } from "circomlibjs"
 import Group from "./group"
 
 describe("Group", () => {
     describe("# Group", () => {
-        let tree: IncrementalMerkleTree
-        let oldTree: IncrementalQuinTree
+        it("Should create a group", () => {
+            const group = new Group()
 
-        beforeEach(() => {
-            tree = new IncrementalMerkleTree(poseidon, depth, BigInt(0), arity)
-            oldTree = new IncrementalQuinTree(depth, BigInt(0), arity, poseidon)
+            expect(group.root.toString()).toContain("150197")
+            expect(group.depth).toBe(20)
+            expect(group.zeroValue).toBe(BigInt(0))
+            expect(group.members).toHaveLength(0)
         })
 
-        it("Should not initialize a tree with wrong parameters", () => {
-            const fun1 = () => new IncrementalMerkleTree(undefined as any, 33, 0, arity)
-            const fun2 = () => new IncrementalMerkleTree(1 as any, 33, 0, arity)
+        it("Should not create a group with a wrong tree depth", () => {
+            const fun = () => new Group(33)
 
-            expect(fun1).toThrow("Parameter 'hash' is not defined")
-            expect(fun2).toThrow("Parameter 'hash' is none of these types: function")
+            expect(fun).toThrow("The tree depth must be between 16 and 32")
         })
 
-        it("Should not initialize a tree with depth > 32", () => {
-            const fun = () => new IncrementalMerkleTree(poseidon, 33, BigInt(0), arity)
+        it("Should create a group with different parameters", () => {
+            const group = new Group(32, BigInt(1))
 
-            expect(fun).toThrow("The tree depth must be between 1 and 32")
+            expect(group.root.toString()).toContain("640470")
+            expect(group.depth).toBe(32)
+            expect(group.zeroValue).toBe(BigInt(1))
+            expect(group.members).toHaveLength(0)
         })
+    })
 
-        it("Should initialize a tree", () => {
-            expect(tree.depth).toEqual(depth)
-            expect(tree.leaves).toHaveLength(0)
-            expect(tree.zeroes).toHaveLength(depth)
-            expect(tree.arity).toEqual(arity)
+    describe("# addMember", () => {
+        it("Should add a member to a group", () => {
+            const group = new Group()
+
+            group.addMember(BigInt(3))
+
+            expect(group.members).toHaveLength(1)
         })
+    })
 
-        it("Should not insert a leaf in a full tree", () => {
-            const fullTree = new IncrementalMerkleTree(poseidon, 1, BigInt(0), 3)
+    describe("# addMembers", () => {
+        it("Should add many members to a group", () => {
+            const group = new Group()
 
-            fullTree.insert(BigInt(0))
-            fullTree.insert(BigInt(1))
-            fullTree.insert(BigInt(2))
+            group.addMembers([BigInt(1), BigInt(3)])
 
-            const fun = () => fullTree.insert(BigInt(4))
-
-            expect(fun).toThrow("The tree is full")
+            expect(group.members).toHaveLength(2)
         })
+    })
 
-        it(`Should insert ${numberOfLeaves} leaves`, () => {
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.insert(BigInt(1))
-                oldTree.insert(BigInt(1))
+    describe("# indexOf", () => {
+        it("Should return the index of a member in a group", () => {
+            const group = new Group()
+            group.addMembers([BigInt(1), BigInt(3)])
 
-                const { root } = oldTree.genMerklePath(0)
-
-                expect(tree.root).toEqual(root)
-                expect(tree.leaves).toHaveLength(i + 1)
-            }
-        })
-
-        it("Should not delete a leaf that does not exist", () => {
-            const fun = () => tree.delete(0)
-
-            expect(fun).toThrow("The leaf does not exist in this tree")
-        })
-
-        it(`Should delete ${numberOfLeaves} leaves`, () => {
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.insert(BigInt(1))
-                oldTree.insert(BigInt(1))
-            }
-
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.delete(i)
-                oldTree.update(i, BigInt(0))
-
-                const { root } = oldTree.genMerklePath(0)
-
-                expect(tree.root).toEqual(root)
-            }
-        })
-
-        it(`Should update ${numberOfLeaves} leaves`, () => {
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.insert(BigInt(1))
-                oldTree.insert(BigInt(1))
-            }
-
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.update(i, BigInt(0))
-                oldTree.update(i, BigInt(0))
-
-                const { root } = oldTree.genMerklePath(0)
-
-                expect(tree.root).toEqual(root)
-            }
-        })
-
-        it("Should return the index of a leaf", () => {
-            tree.insert(BigInt(1))
-            tree.insert(BigInt(2))
-
-            const index = tree.indexOf(BigInt(2))
+            const index = group.indexOf(BigInt(3))
 
             expect(index).toBe(1)
         })
+    })
 
-        it("Should not create any proof if the leaf does not exist", () => {
-            tree.insert(BigInt(1))
+    describe("# removeMember", () => {
+        it("Should remove a member from a group", () => {
+            const group = new Group()
+            group.addMembers([BigInt(1), BigInt(3)])
 
-            const fun = () => tree.createProof(1)
+            group.removeMember(0)
 
-            expect(fun).toThrow("The leaf does not exist in this tree")
+            expect(group.members).toHaveLength(2)
+            expect(group.members[0]).toBe(group.zeroValue)
         })
+    })
 
-        it("Should create a valid proof", () => {
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                tree.insert(BigInt(i + 1))
-            }
+    describe("# generateProofOfMembership", () => {
+        it("Should generate a proof of membership", () => {
+            const group = new Group()
+            group.addMembers([BigInt(1), BigInt(3)])
 
-            for (let i = 0; i < numberOfLeaves; i += 1) {
-                const proof = tree.createProof(i)
+            const proof = group.generateProofOfMembership(0)
 
-                expect(tree.verifyProof(proof)).toBeTruthy()
-            }
+            expect(proof.leaf).toBe(BigInt(1))
+        })
+    })
+
+    describe("# verifyProofOfMembership", () => {
+        it("Should verify a proof of membership", () => {
+            const group = new Group()
+            group.addMembers([BigInt(1), BigInt(3)])
+            const proof = group.generateProofOfMembership(0)
+
+            const response = group.verifyProofOfMembership(proof)
+
+            expect(response).toBeTruthy()
         })
     })
 })

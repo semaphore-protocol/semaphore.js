@@ -1,1 +1,1 @@
-export type BigNumberish = string | bigint
+export type Member = string | bigint

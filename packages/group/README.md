@@ -38,8 +38,9 @@
     </h4>
 </div>
 
-What's a group? Abstraction of Merkle trees.
-Table with different sizes.
+This library is an abstraction of [`@zk-kit/incremental-merkle-tree`](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/incremental-merkle-tree). The main goal is to make it easier to create offchain groups, which are also used to generate Semaphore proofs. Semaphore groups are actually incremental Merkle trees, and the group members are tree leaves. Since the Merkle tree implementation we are using is a binary tree, the maximum number of members of a group is equal to `2^treeDepth`.
+
+TODO: Table.
 
 ---
 
@@ -61,7 +62,7 @@ yarn add @semaphore-protocol/group
 
 ## 📜 Usage
 
-\# **new Group**(size?: _GroupSize | number_): _Group_
+\# **new Group**(treeDepth = 20, zeroValue = BigInt(0)): _Group_
 
 ```typescript
 import { Group } from "@semaphore-protocol/group"
@@ -70,26 +71,58 @@ import { Group } from "@semaphore-protocol/group"
 const group1 = new Group()
 
 // Group with max 65536 members (16^²).
-const group2 = new Group(GroupSize.XS)
+const group2 = new Group(16)
 
 // Group with max 16777216 members (24^²).
-const group3 = new Group(GroupSize.XL)
+const group3 = new Group(24)
 ```
 
-\# **getTrapdoor**(): _bigint_
+\# **addMember**(identityCommitment: _Member_)
 
 ```typescript
-const trapdoor = identity.getTrapdoor()
-```
+import { Identity } from "@semaphore-protocol/identity"
 
-\# **getNullifier**(): _bigint_
-
-```typescript
-const nullifier = identity.getNullifier()
-```
-
-\# **generateCommitment**(): _bigint_
-
-```typescript
+const identity = new Identity()
 const commitment = identity.generateCommitment()
+
+group.addMember(commitment)
+```
+
+\# **addMembers**(identityCommitments: _Member\[]_)
+
+```typescript
+let identityCommitments: bigint[]
+
+for (let i = 0; i < 10; i++) {
+    const identity = new Identity()
+    const commitment = identity.generateCommitment()
+
+    identityCommitments.push(commitment)
+}
+
+group.addMember(identityCommitments)
+```
+
+\# **removeMember**(index: _number_)
+
+```typescript
+group.removeMember(0)
+```
+
+\# **indexOf**(member: _Member_): _number_
+
+```typescript
+group.indexOf(commitment) // 0
+```
+
+\# **generateProofOfMembership**(index: _number_): _MerkleProof_
+
+```typescript
+const proof = group.generateProofOfMembership(0)
+```
+
+\# **verifyProofOfMembership**(proof: _MerkleProof_): _boolean_
+
+```typescript
+group.verifyProofOfMembership(proof) // true
 ```

@@ -1,6 +1,6 @@
 {
     "name": "@semaphore-protocol/group",
-    "version": "0.2.2",
+    "version": "0.1.0",
     "description": "A library for managing Semaphore groups.",
     "license": "MIT",
     "main": "dist/index.node.js",
@@ -32,7 +32,7 @@
         "typedoc": "^0.22.11"
     },
     "dependencies": {
-        "@zk-kit/incremental-merkle-tree": "^0.4.3",
+        "@zk-kit/incremental-merkle-tree": "0.4.3",
         "circomlibjs": "0.0.8"
     }
 }
