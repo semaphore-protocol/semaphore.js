@@ -50,8 +50,8 @@
     </h4>
 </div>
 
-| Semaphore provides a set of JavaScript libraries to create identities, generate zero-knowledge proofs and verify them with minimal effort. |
-| ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Semaphore provides a set of JavaScript libraries to create identities, groups, generate zero-knowledge proofs and verify them with minimal effort. |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ---
 
@@ -81,6 +81,28 @@
                 <!-- Downloads -->
                 <a href="https://npmjs.org/package/@semaphore-protocol/identity">
                     <img src="https://img.shields.io/npm/dm/@semaphore-protocol/identity.svg?style=flat-square" alt="Downloads" />
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="https://github.com/semaphore-protocol/semaphore.js/tree/main/packages/group">
+                    @semaphore-protocol/group
+                </a>
+                <a href="https://semaphore-protocol.github.io/semaphore.js/group">
+                    (docs)
+                </a>
+            </td>
+            <td>
+                <!-- NPM version -->
+                <a href="https://npmjs.org/package/@semaphore-protocol/group">
+                    <img src="https://img.shields.io/npm/v/@semaphore-protocol/group.svg?style=flat-square" alt="NPM version" />
+                </a>
+            </td>
+            <td>
+                <!-- Downloads -->
+                <a href="https://npmjs.org/package/@semaphore-protocol/group">
+                    <img src="https://img.shields.io/npm/dm/@semaphore-protocol/group.svg?style=flat-square" alt="Downloads" />
                 </a>
             </td>
         </tr>
