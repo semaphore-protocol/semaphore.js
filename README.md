@@ -53,8 +53,6 @@
 | Semaphore provides a set of JavaScript libraries to create identities, groups, generate zero-knowledge proofs and verify them with minimal effort. |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 
----
-
 ## 📦 Packages
 
 <table>

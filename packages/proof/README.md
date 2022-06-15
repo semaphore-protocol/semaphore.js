@@ -67,7 +67,7 @@ const depth = 20
 const zeroValue = BigInt(0)
 const leaves = [BigInt(1), BigInt(2)]
 
-const merkleTree = createMerkleTree(treeDepth, zeroValue, leaves)
+const merkleTree = createMerkleTree(depth, zeroValue, leaves)
 ```
 
 \# **createMerkleProof**(depth: _number_, zeroValue: _BigNumberish_, leaves: _BigNumberish\[]_, leaf: _BigNumberish_): _MerkleProof_
@@ -84,7 +84,7 @@ const identity = new Identity()
 const leaf = identity.genIdentityCommitment()
 const leaves = [BigInt(1), identityCommitment, BigInt(2)]
 
-const merkleProof = createMerkleProof(treeDepth, zeroValue, leaves, leaf)
+const merkleProof = createMerkleProof(depth, zeroValue, leaves, leaf)
 ```
 
 \# **generateProof**(identity: _Identity_, merkleProof: _MerkleProof_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
