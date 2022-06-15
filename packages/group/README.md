@@ -38,11 +38,8 @@
     </h4>
 </div>
 
-This library is an abstraction of [`@zk-kit/incremental-merkle-tree`](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/incremental-merkle-tree). The main goal is to make it easier to create offchain groups, which are also used to generate Semaphore proofs. Semaphore groups are actually incremental Merkle trees, and the group members are tree leaves. Since the Merkle tree implementation we are using is a binary tree, the maximum number of members of a group is equal to `2^treeDepth`.
-
-TODO: Table.
-
----
+| This library is an abstraction of [`@zk-kit/incremental-merkle-tree`](https://github.com/privacy-scaling-explorations/zk-kit/tree/main/packages/incremental-merkle-tree). The main goal is to make it easier to create offchain groups, which are also used to generate Semaphore proofs. Semaphore groups are actually incremental Merkle trees, and the group members are tree leaves. Since the Merkle tree implementation we are using is a binary tree, the maximum number of members of a group is equal to `2^treeDepth`. |
+| ------------------------------------------------------------------------------------------------------------------------------------------ |
 
 ## 🛠 Install
 
