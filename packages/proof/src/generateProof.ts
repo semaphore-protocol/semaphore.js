@@ -20,6 +20,8 @@ export default async function generateProof(
 
     const merkleProof = group.generateProofOfMembership(index)
 
+    merkleProof.siblings = merkleProof.siblings.map((s) => s[0])
+
     const { proof, publicSignals } = await groth16.fullProve(
         {
             identityTrapdoor: identity.getTrapdoor(),
