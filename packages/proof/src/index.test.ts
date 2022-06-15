@@ -1,9 +1,8 @@
+import { Group } from "@semaphore-protocol/group"
 import { Identity } from "@semaphore-protocol/identity"
 import download from "download"
 import { getCurveFromName } from "ffjavascript"
 import fs from "fs"
-import createMerkleProof from "./createMerkleProof"
-import createMerkleTree from "./createMerkleTree"
 import generateNullifierHash from "./generateNullifierHash"
 import generateProof from "./generateProof"
 import generateSignalHash from "./generateSignalHash"
@@ -13,13 +12,16 @@ import verifyProof from "./verifyProof"
 
 describe("Proof", () => {
     const treeDepth = 20
+
     const externalNullifier = "1"
     const signal = "0x111"
 
     const snarkArtifactsPath = "./packages/proof/snark-artifacts"
     const snarkArtifactsUrl = `http://www.trusted-setup-pse.org/semaphore/${treeDepth}`
 
-    let identity: Identity
+    const identity = new Identity()
+    const identityCommitment = identity.generateCommitment()
+
     let fullProof: FullProof
     let curve: any
 
@@ -41,49 +43,34 @@ describe("Proof", () => {
         await curve.terminate()
     })
 
-    describe("# createMerkleTree", () => {
-        it("Should not generate a Merkle tree with a zero value leaf", async () => {
-            const fun = () => createMerkleTree(treeDepth, BigInt(0), [BigInt(0), BigInt(1)])
-
-            expect(fun).toThrow("Leaves cannot have zero values")
-        })
-
-        it("Should generate a Merkle tree", async () => {
-            const merkleTree = createMerkleTree(treeDepth, BigInt(0), [BigInt(1), BigInt(2)])
-
-            expect(merkleTree.leaves).toHaveLength(2)
-        })
-    })
-
-    describe("# createMerkleProof", () => {
-        it("Should not generate a Merkle proof of a non-existing leaf", async () => {
-            const fun = () => createMerkleProof(treeDepth, BigInt(0), [BigInt(1), BigInt(2)], BigInt(3))
-
-            expect(fun).toThrow("The leaf does not exist")
-        })
-
-        it("Should generate a Merkle proof", async () => {
-            const merkleProof = createMerkleProof(treeDepth, BigInt(0), [BigInt(1), BigInt(2)], BigInt(2))
-
-            expect(merkleProof.leaf).toBe(BigInt(2))
-        })
-    })
-
     describe("# generateProof", () => {
-        it("Should generate a Semaphore proof", async () => {
-            identity = new Identity()
-            const identityCommitment = identity.generateCommitment()
-            const leaves = [BigInt(3), BigInt(2), identityCommitment, BigInt(4)]
-            const merkleProof = createMerkleProof(treeDepth, BigInt(0), leaves, identityCommitment)
+        it("Should not generate Semaphore proofs if the identity is not part of the group", async () => {
+            const group = new Group(treeDepth)
 
-            fullProof = await generateProof(identity, merkleProof, externalNullifier, signal, {
+            group.addMembers([BigInt(1), BigInt(2)])
+
+            const fun = () =>
+                generateProof(identity, group, externalNullifier, signal, {
+                    wasmFilePath: `${snarkArtifactsPath}/semaphore.wasm`,
+                    zkeyFilePath: `${snarkArtifactsPath}/semaphore.zkey`
+                })
+
+            await expect(fun).rejects.toThrow("The identity is not part of the group")
+        })
+
+        it("Should generate a Semaphore proof", async () => {
+            const group = new Group(treeDepth)
+
+            group.addMembers([BigInt(1), BigInt(2), identityCommitment])
+
+            fullProof = await generateProof(identity, group, externalNullifier, signal, {
                 wasmFilePath: `${snarkArtifactsPath}/semaphore.wasm`,
                 zkeyFilePath: `${snarkArtifactsPath}/semaphore.zkey`
             })
 
             expect(typeof fullProof).toBe("object")
             expect(fullProof.publicSignals.externalNullifier).toBe(externalNullifier)
-            expect(fullProof.publicSignals.merkleRoot).toBe(merkleProof.root.toString())
+            expect(fullProof.publicSignals.merkleRoot).toBe(group.root.toString())
         }, 20000)
     })
 

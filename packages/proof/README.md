@@ -2,7 +2,7 @@
     <h1 align="center">
         Semaphore proof
     </h1>
-    <p align="center">A library for generating and verifying Semaphore proofs.</p>
+    <p align="center">A library to generate and verify Semaphore proofs.</p>
 </p>
 
 <p align="center">
@@ -58,43 +58,19 @@ yarn add @semaphore-protocol/proof
 
 ## 📜 Usage
 
-\# **createMerkleTree**(depth: _number_, zeroValue: _BigNumberish_, leaves: _BigNumberish\[]_): _MerkleProof_
-
-```typescript
-import { createMerkleTree } from "@semaphore-protocol/proof"
-
-const depth = 20
-const zeroValue = BigInt(0)
-const leaves = [BigInt(1), BigInt(2)]
-
-const merkleTree = createMerkleTree(depth, zeroValue, leaves)
-```
-
-\# **createMerkleProof**(depth: _number_, zeroValue: _BigNumberish_, leaves: _BigNumberish\[]_, leaf: _BigNumberish_): _MerkleProof_
+\# **generateProof**(identity: _Identity_, group: _Group_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
 
 ```typescript
 import { Identity } from "@semaphore-protocol/identity"
-import { createMerkleProof } from "@semaphore-protocol/proof"
-
-const depth = 20
-const zeroValue = BigInt(0)
-
-const identity = new Identity()
-
-const leaf = identity.genIdentityCommitment()
-const leaves = [BigInt(1), identityCommitment, BigInt(2)]
-
-const merkleProof = createMerkleProof(depth, zeroValue, leaves, leaf)
-```
-
-\# **generateProof**(identity: _Identity_, merkleProof: _MerkleProof_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
-
-```typescript
-import { Identity } from "@semaphore-protocol/identity"
+import { Group } from "@semaphore-protocol/group"
 import { generateProof } from "@semaphore-protocol/proof"
 
+const identity = new Identity()
+const group = new Group()
 const externalNullifier = BigInt(1)
 const signal = "Hello world"
+
+group.addMembers([...identityCommitments, identity.generateCommitment()])
 
 const fullProof = await generateProof(identity, merkleProof, externalNullifier, signal, {
     zkeyFilePath: "./semaphore.zkey",
