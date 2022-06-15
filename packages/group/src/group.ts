@@ -64,7 +64,7 @@ export default class Group {
      * @param identityCommitment New member.
      */
     addMember(identityCommitment: Member) {
-        this._merkleTree.insert(identityCommitment)
+        this._merkleTree.insert(BigInt(identityCommitment))
     }
 
     /**
