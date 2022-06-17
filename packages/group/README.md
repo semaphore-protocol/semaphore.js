@@ -2,7 +2,7 @@
     <h1 align="center">
         Semaphore group
     </h1>
-    <p align="center">A library for managing Semaphore groups.</p>
+    <p align="center">A library to create and manage Semaphore groups.</p>
 </p>
 
 <p align="center">

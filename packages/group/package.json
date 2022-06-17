@@ -1,7 +1,7 @@
 {
     "name": "@semaphore-protocol/group",
     "version": "0.1.2",
-    "description": "A library for managing Semaphore groups.",
+    "description": "A library to create and manage Semaphore groups.",
     "license": "MIT",
     "main": "dist/index.node.js",
     "exports": {
