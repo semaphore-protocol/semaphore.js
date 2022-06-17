@@ -38,8 +38,8 @@
     </h4>
 </div>
 
-| This library provides a class that can be used to create identities compatible with the Semaphore [circuits](https://github.com/semaphore-protocol/semaphore/tree/main/circuits). Each identity contains two private values (*trapdoor* and *nullifier*), and the Poseidon hash of these values (*commitment*) is used as the public identifier of the Semaphore identity. |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| This library provides a class that can be used to create identities compatible with the Semaphore [circuits](https://github.com/semaphore-protocol/semaphore/tree/main/circuits). Each identity contains two private values (_trapdoor_ and _nullifier_), and the Poseidon hash of these values (_commitment_) is used as the public identifier of the Semaphore identity. |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ## 🛠 Install
 
