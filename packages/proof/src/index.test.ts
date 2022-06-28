@@ -58,22 +58,17 @@ describe("Proof", () => {
             await expect(fun).rejects.toThrow("The identity is not part of the group")
         })
 
-        it("Should generate a Semaphore proof", async () => {
+        it("Should not generate a Semaphore proof with default snark artifacts with Node.js", async () => {
             const group = new Group(treeDepth)
 
             group.addMembers([BigInt(1), BigInt(2), identityCommitment])
 
-            fullProof = await generateProof(identity, group, externalNullifier, signal, {
-                wasmFilePath: `${snarkArtifactsPath}/semaphore.wasm`,
-                zkeyFilePath: `${snarkArtifactsPath}/semaphore.zkey`
-            })
+            const fun = () => generateProof(identity, group, externalNullifier, signal)
 
-            expect(typeof fullProof).toBe("object")
-            expect(fullProof.publicSignals.externalNullifier).toBe(externalNullifier)
-            expect(fullProof.publicSignals.merkleRoot).toBe(group.root.toString())
+            await expect(fun).rejects.toThrow("ENOENT: no such file or directory")
         }, 20000)
 
-        it("Should generate a Semaphore proof with default snark artifacts", async () => {
+        it("Should generate a Semaphore proof", async () => {
             const group = new Group(treeDepth)
 
             group.addMembers([BigInt(1), BigInt(2), identityCommitment])

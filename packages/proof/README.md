@@ -59,7 +59,7 @@ yarn add @semaphore-protocol/proof
 
 ## 📜 Usage
 
-\# **generateProof**(identity: _Identity_, group: _Group_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
+\# **generateProof**(identity: _Identity_, group: _Group_, externalNullifier: _BigNumberish_, signal: _string_, snarkArtifacts?: _SnarkArtifacts_): Promise\<_SemaphoreFullProof_>
 
 ```typescript
 import { Identity } from "@semaphore-protocol/identity"
@@ -77,6 +77,9 @@ const fullProof = await generateProof(identity, merkleProof, externalNullifier, 
     zkeyFilePath: "./semaphore.zkey",
     wasmFilePath: "./semaphore.wasm"
 })
+
+// You can also use the default zkey/wasm files (only for browsers!).
+// const fullProof = await generateProof(identity, merkleProof, externalNullifier, signal)
 ```
 
 \# **verifyProof**(verificationKey: _any_, fullProof: _FullProof_): Promise\<_boolean_>
