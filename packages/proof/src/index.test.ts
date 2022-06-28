@@ -72,6 +72,21 @@ describe("Proof", () => {
             expect(fullProof.publicSignals.externalNullifier).toBe(externalNullifier)
             expect(fullProof.publicSignals.merkleRoot).toBe(group.root.toString())
         }, 20000)
+
+        it("Should generate a Semaphore proof with default snark artifacts", async () => {
+            const group = new Group(treeDepth)
+
+            group.addMembers([BigInt(1), BigInt(2), identityCommitment])
+
+            fullProof = await generateProof(identity, group, externalNullifier, signal, {
+                wasmFilePath: `${snarkArtifactsPath}/semaphore.wasm`,
+                zkeyFilePath: `${snarkArtifactsPath}/semaphore.zkey`
+            })
+
+            expect(typeof fullProof).toBe("object")
+            expect(fullProof.publicSignals.externalNullifier).toBe(externalNullifier)
+            expect(fullProof.publicSignals.merkleRoot).toBe(group.root.toString())
+        }, 20000)
     })
 
     describe("# generateSignalHash", () => {

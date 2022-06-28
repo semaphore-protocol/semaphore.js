@@ -9,7 +9,10 @@ export default async function generateProof(
     group: Group,
     externalNullifier: BigNumberish,
     signal: string,
-    snarkArtifacts: SnarkArtifacts
+    snarkArtifacts: SnarkArtifacts = {
+        wasmFilePath: `https://www.trusted-setup-pse.org/semaphore/${group.depth}/semaphore.wasm`,
+        zkeyFilePath: `https://www.trusted-setup-pse.org/semaphore/${group.depth}/semaphore.zkey`
+    }
 ): Promise<FullProof> {
     const commitment = identity.generateCommitment()
     const index = group.indexOf(commitment)
