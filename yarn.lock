@@ -2294,7 +2294,7 @@ __metadata:
     "@ethersproject/strings": ^5.5.0
     "@semaphore-protocol/group": 2.0.0
     "@semaphore-protocol/identity": 2.0.0
-    "@zk-kit/incremental-merkle-tree": ^0.4.3
+    "@zk-kit/incremental-merkle-tree": 0.4.3
     circomlibjs: 0.0.8
     download: ^8.0.0
     ffjavascript: ^0.2.54
@@ -2808,7 +2808,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zk-kit/incremental-merkle-tree@npm:0.4.3, @zk-kit/incremental-merkle-tree@npm:^0.4.3":
+"@zk-kit/incremental-merkle-tree@npm:0.4.3":
   version: 0.4.3
   resolution: "@zk-kit/incremental-merkle-tree@npm:0.4.3"
   checksum: 582ef97bd2b1b9638ce7c8a941200a5cf0ab86975f767de233905e8af0ff72d31b44f2497595f0ff585e45c7491481cf4e027ee6486a136cd64498d4b16b3e29
