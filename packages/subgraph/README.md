@@ -67,7 +67,7 @@ import { Subgraph } from "@semaphore-protocol/subgraph"
 const subgraph = new Subgraph()
 ```
 
-\# **getGroups**(options?: _{ members: boolean }_)
+\# **getGroups**(options?: _GroupOptions_)
 
 ```typescript
 const groups = subgraph.getGroups()
@@ -77,7 +77,7 @@ const groups = subgraph.getGroups()
 const groups = subgraph.getGroups({ members: true })
 ```
 
-\# **getGroup**(groupId: _string_, options?: _{ members: boolean }_)
+\# **getGroup**(groupId: _string_, options?: _GroupOptions_)
 
 ```typescript
 const group = subgraph.getGroup("1")

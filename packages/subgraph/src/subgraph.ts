@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from "axios"
 import checkParameter from "./checkParameter"
 import getURL from "./getURL"
 import request from "./request"
-import { Network } from "./types"
+import { GroupOptions, Network } from "./types"
 
 export default class Subgraph {
     private _url: string
@@ -30,7 +30,7 @@ export default class Subgraph {
      * @param options Options to select the group parameters.
      * @returns List of groups.
      */
-    async getGroups(options: { members?: boolean } = {}): Promise<any[]> {
+    async getGroups(options: GroupOptions = {}): Promise<any[]> {
         checkParameter(options, "options", "object")
 
         const { members = false } = options
@@ -78,7 +78,7 @@ export default class Subgraph {
      * @param options Options to select the group parameters.
      * @returns Specific group.
      */
-    async getGroup(groupId: string, options: { members?: boolean } = {}): Promise<any> {
+    async getGroup(groupId: string, options: GroupOptions = {}): Promise<any> {
         checkParameter(groupId, "groupId", "string")
         checkParameter(options, "options", "object")
 
