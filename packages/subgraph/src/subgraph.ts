@@ -7,16 +7,29 @@ import { Network } from "./types"
 export default class Subgraph {
     private _url: string
 
+    /**
+     * Initializes the subgraph object with one of the supported networks.
+     * @param network Supported Semaphore network.
+     */
     constructor(network: Network = "arbitrum") {
         checkParameter(network, "network", "string")
 
         this._url = getURL(network)
     }
 
+    /**
+     * Returns the subgraph URL.
+     * @returns Subgraph URL.
+     */
     get url(): string {
         return this._url
     }
 
+    /**
+     * Returns the list of groups.
+     * @param options Options to select the group parameters.
+     * @returns List of groups.
+     */
     async getGroups(options: { members?: boolean } = {}): Promise<any[]> {
         checkParameter(options, "options", "object")
 
@@ -59,6 +72,12 @@ export default class Subgraph {
         return groups
     }
 
+    /**
+     * Returns a specific group.
+     * @param groupId Group id.
+     * @param options Options to select the group parameters.
+     * @returns Specific group.
+     */
     async getGroup(groupId: string, options: { members?: boolean } = {}): Promise<any> {
         checkParameter(groupId, "groupId", "string")
         checkParameter(options, "options", "object")
