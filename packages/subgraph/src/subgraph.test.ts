@@ -13,14 +13,11 @@ describe("Subgraph", () => {
 
     describe("# Subgraph", () => {
         it("Should instantiate a subgraph object", () => {
-            const subgraph1 = new Subgraph("kovan")
-            const subgraph2 = new Subgraph("goerli")
+            subgraph = new Subgraph("goerli")
+            const subgraph1 = new Subgraph()
 
-            subgraph = new Subgraph()
-
-            expect(subgraph1.url).toContain("kovan")
-            expect(subgraph2.url).toContain("goerli")
-            expect(subgraph.url).toContain("arbitrum")
+            expect(subgraph.url).toContain("goerli")
+            expect(subgraph1.url).toContain("arbitrum")
         })
 
         it("Should throw an error if there is a wrong network", () => {
@@ -46,7 +43,6 @@ describe("Subgraph", () => {
                             depth: 20,
                             zeroValue: 0,
                             size: 2,
-                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
                         }
@@ -63,7 +59,6 @@ describe("Subgraph", () => {
                 depth: 20,
                 zeroValue: 0,
                 size: 2,
-                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
             })
@@ -75,7 +70,7 @@ describe("Subgraph", () => {
             await expect(fun).rejects.toThrow("Parameter 'options' is not an object")
         })
 
-        it("Should return all the existing groups with their members", async () => {
+        it("Should return all the existing groups with their members and verified proofs", async () => {
             requestMocked.mockImplementationOnce(() =>
                 Promise.resolve({
                     groups: [
@@ -84,7 +79,6 @@ describe("Subgraph", () => {
                             depth: 20,
                             zeroValue: 0,
                             size: 2,
-                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                             members: [
@@ -94,13 +88,23 @@ describe("Subgraph", () => {
                                 {
                                     identityCommitment: "2"
                                 }
+                            ],
+                            verifiedProofs: [
+                                {
+                                    signal: "0x3243b",
+                                    timestamp: "1657306917"
+                                },
+                                {
+                                    signal: "0x5233a",
+                                    timestamp: "1657306923"
+                                }
                             ]
                         }
                     ]
                 })
             )
 
-            const expectedValue = await subgraph.getGroups({ members: true })
+            const expectedValue = await subgraph.getGroups({ members: true, verifiedProofs: true })
 
             expect(expectedValue).toBeDefined()
             expect(Array.isArray(expectedValue)).toBeTruthy()
@@ -109,10 +113,19 @@ describe("Subgraph", () => {
                 depth: 20,
                 zeroValue: 0,
                 size: 2,
-                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
-                members: ["1", "2"]
+                members: ["1", "2"],
+                verifiedProofs: [
+                    {
+                        signal: "0x3243b",
+                        timestamp: 1657306917
+                    },
+                    {
+                        signal: "0x5233a",
+                        timestamp: 1657306923
+                    }
+                ]
             })
         })
     })
@@ -127,7 +140,6 @@ describe("Subgraph", () => {
                             depth: 20,
                             zeroValue: 0,
                             size: 2,
-                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
                         }
@@ -143,7 +155,6 @@ describe("Subgraph", () => {
                 depth: 20,
                 zeroValue: 0,
                 size: 2,
-                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
             })
@@ -155,7 +166,7 @@ describe("Subgraph", () => {
             await expect(fun).rejects.toThrow("Parameter 'options' is not an object")
         })
 
-        it("Should return a specific group with its members", async () => {
+        it("Should return a specific group with its members and verified proofs", async () => {
             requestMocked.mockImplementationOnce(() =>
                 Promise.resolve({
                     groups: [
@@ -164,7 +175,6 @@ describe("Subgraph", () => {
                             depth: 20,
                             zeroValue: 0,
                             size: 2,
-                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                             members: [
@@ -174,6 +184,16 @@ describe("Subgraph", () => {
                                 {
                                     identityCommitment: "2"
                                 }
+                            ],
+                            verifiedProofs: [
+                                {
+                                    signal: "0x3243b",
+                                    timestamp: "1657306917"
+                                },
+                                {
+                                    signal: "0x5233a",
+                                    timestamp: "1657306923"
+                                }
                             ]
                         }
                     ]
@@ -181,7 +201,8 @@ describe("Subgraph", () => {
             )
 
             const expectedValue = await subgraph.getGroup("1", {
-                members: true
+                members: true,
+                verifiedProofs: true
             })
 
             expect(expectedValue).toBeDefined()
@@ -190,10 +211,19 @@ describe("Subgraph", () => {
                 depth: 20,
                 zeroValue: 0,
                 size: 2,
-                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
-                members: ["1", "2"]
+                members: ["1", "2"],
+                verifiedProofs: [
+                    {
+                        signal: "0x3243b",
+                        timestamp: 1657306917
+                    },
+                    {
+                        signal: "0x5233a",
+                        timestamp: 1657306923
+                    }
+                ]
             })
         })
     })
