@@ -90,7 +90,7 @@ const groups = subgraph.getGroups()
 
 // or
 
-const groups = subgraph.getGroups({ members: true, verifiedProofs: true })
+const groups = subgraph.getGroups({ members: true, signals: true })
 ```
 
 \# **getGroup**(groupId: _string_, options?: _GroupOptions_)
@@ -100,5 +100,5 @@ const group = subgraph.getGroup("1")
 
 // or
 
-const { members } = subgraph.getGroup("1", { members: true, verifiedProofs: true })
+const { members } = subgraph.getGroup("1", { members: true, signals: true })
 ```
