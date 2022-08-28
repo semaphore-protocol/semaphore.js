@@ -70,7 +70,7 @@ describe("Subgraph", () => {
             await expect(fun).rejects.toThrow("Parameter 'options' is not an object")
         })
 
-        it("Should return all the existing groups with their members and verified proofs", async () => {
+        it("Should return all the existing groups with their members and signals", async () => {
             requestMocked.mockImplementationOnce(() =>
                 Promise.resolve({
                     groups: [
@@ -104,7 +104,10 @@ describe("Subgraph", () => {
                 })
             )
 
-            const expectedValue = await subgraph.getGroups({ members: true, verifiedProofs: true })
+            const expectedValue = await subgraph.getGroups({
+                members: true,
+                signals: true
+            })
 
             expect(expectedValue).toBeDefined()
             expect(Array.isArray(expectedValue)).toBeTruthy()
@@ -116,16 +119,7 @@ describe("Subgraph", () => {
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                 members: ["1", "2"],
-                verifiedProofs: [
-                    {
-                        signal: "0x3243b",
-                        timestamp: 1657306917
-                    },
-                    {
-                        signal: "0x5233a",
-                        timestamp: 1657306923
-                    }
-                ]
+                signals: ["0x3243b", "0x5233a"]
             })
         })
     })
@@ -166,7 +160,7 @@ describe("Subgraph", () => {
             await expect(fun).rejects.toThrow("Parameter 'options' is not an object")
         })
 
-        it("Should return a specific group with its members and verified proofs", async () => {
+        it("Should return a specific group with its members and signals", async () => {
             requestMocked.mockImplementationOnce(() =>
                 Promise.resolve({
                     groups: [
@@ -202,7 +196,7 @@ describe("Subgraph", () => {
 
             const expectedValue = await subgraph.getGroup("1", {
                 members: true,
-                verifiedProofs: true
+                signals: true
             })
 
             expect(expectedValue).toBeDefined()
@@ -214,16 +208,7 @@ describe("Subgraph", () => {
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                 members: ["1", "2"],
-                verifiedProofs: [
-                    {
-                        signal: "0x3243b",
-                        timestamp: 1657306917
-                    },
-                    {
-                        signal: "0x5233a",
-                        timestamp: 1657306923
-                    }
-                ]
+                signals: ["0x3243b", "0x5233a"]
             })
         })
     })

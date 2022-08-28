@@ -33,10 +33,10 @@ export default class Subgraph {
     async getGroups(options: GroupOptions = {}): Promise<any[]> {
         checkParameter(options, "options", "object")
 
-        const { members = false, verifiedProofs = false } = options
+        const { members = false, signals = false } = options
 
         checkParameter(members, "members", "boolean")
-        checkParameter(verifiedProofs, "verifiedProofs", "boolean")
+        checkParameter(signals, "signals", "boolean")
 
         const config: AxiosRequestConfig = {
             method: "post",
@@ -57,10 +57,9 @@ export default class Subgraph {
                                 : ""
                         }
                         ${
-                            verifiedProofs === true
+                            signals === true
                                 ? `verifiedProofs(orderBy: timestamp) {
                             signal
-                            timestamp
                         }`
                                 : ""
                         }
@@ -77,12 +76,11 @@ export default class Subgraph {
             }
         }
 
-        if (verifiedProofs) {
+        if (signals) {
             for (const group of groups) {
-                group.verifiedProofs = group.verifiedProofs.map((verifiedProof: any) => ({
-                    signal: verifiedProof.signal,
-                    timestamp: Number(verifiedProof.timestamp)
-                }))
+                group.signals = group.verifiedProofs.map((verifiedProof: any) => verifiedProof.signal)
+
+                delete group.verifiedProofs
             }
         }
 
@@ -99,10 +97,10 @@ export default class Subgraph {
         checkParameter(groupId, "groupId", "string")
         checkParameter(options, "options", "object")
 
-        const { members = false, verifiedProofs = false } = options
+        const { members = false, signals = false } = options
 
         checkParameter(members, "members", "boolean")
-        checkParameter(verifiedProofs, "verifiedProofs", "boolean")
+        checkParameter(signals, "signals", "boolean")
 
         const config: AxiosRequestConfig = {
             method: "post",
@@ -123,10 +121,9 @@ export default class Subgraph {
                                 : ""
                         }
                         ${
-                            verifiedProofs === true
+                            signals === true
                                 ? `verifiedProofs(orderBy: timestamp) {
                             signal
-                            timestamp
                         }`
                                 : ""
                         }
@@ -141,11 +138,10 @@ export default class Subgraph {
             groups[0].members = groups[0].members.map((member: any) => member.identityCommitment)
         }
 
-        if (verifiedProofs) {
-            groups[0].verifiedProofs = groups[0].verifiedProofs.map((verifiedProof: any) => ({
-                signal: verifiedProof.signal,
-                timestamp: Number(verifiedProof.timestamp)
-            }))
+        if (signals) {
+            groups[0].signals = groups[0].verifiedProofs.map((verifiedProof: any) => verifiedProof.signal)
+
+            delete groups[0].verifiedProofs
         }
 
         return groups[0]
