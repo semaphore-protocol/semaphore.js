@@ -51,7 +51,7 @@ export default class Subgraph {
                         admin
                         ${
                             members === true
-                                ? `members(orderBy: index) {
+                                ? `members(orderBy: timestamp) {
                             identityCommitment
                         }`
                                 : ""
@@ -117,7 +117,7 @@ export default class Subgraph {
                         admin
                         ${
                             members === true
-                                ? `members(orderBy: index) {
+                                ? `members(orderBy: timestamp) {
                             identityCommitment
                         }`
                                 : ""
