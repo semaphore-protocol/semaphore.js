@@ -1,3 +1,4 @@
+import { formatBytes32String } from "@ethersproject/strings"
 import { Group } from "@semaphore-protocol/group"
 import { Identity } from "@semaphore-protocol/identity"
 import download from "download"
@@ -102,6 +103,12 @@ describe("Proof", () => {
     describe("# generateSignalHash", () => {
         it("Should generate a valid signal hash", async () => {
             const signalHash = generateSignalHash(signal)
+
+            expect(signalHash.toString()).toBe(fullProof.publicSignals.signalHash)
+        })
+
+        it("Should generate a valid signal hash by passing a valid hex string", async () => {
+            const signalHash = generateSignalHash(formatBytes32String(signal))
 
             expect(signalHash.toString()).toBe(fullProof.publicSignals.signalHash)
         })

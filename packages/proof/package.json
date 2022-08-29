@@ -34,7 +34,7 @@
         "typedoc": "^0.22.11"
     },
     "dependencies": {
-        "@ethersproject/bytes": "^5.5.0",
+        "@ethersproject/bytes": "^5.7.0",
         "@ethersproject/solidity": "^5.5.0",
         "@ethersproject/strings": "^5.5.0",
         "@semaphore-protocol/group": "2.0.0",
