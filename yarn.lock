@@ -2311,7 +2311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semaphore-protocol/group@2.0.0, @semaphore-protocol/group@workspace:packages/group":
+"@semaphore-protocol/group@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@semaphore-protocol/group@npm:2.0.0"
+  dependencies:
+    "@zk-kit/incremental-merkle-tree": 0.4.3
+    circomlibjs: 0.0.8
+  checksum: 871bccaa2bc5958b93dc47d5d24db4282bf5e2af667f1b79e1040a4125192e0ab094464232985f70ee5bb35299016fffda56e097d08f5511e2f09180ba018c78
+  languageName: node
+  linkType: hard
+
+"@semaphore-protocol/group@workspace:packages/group":
   version: 0.0.0-use.local
   resolution: "@semaphore-protocol/group@workspace:packages/group"
   dependencies:
