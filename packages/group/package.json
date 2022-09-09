@@ -32,7 +32,7 @@
         "typedoc": "^0.22.11"
     },
     "dependencies": {
-        "@zk-kit/incremental-merkle-tree": "0.4.3",
+        "@zk-kit/incremental-merkle-tree": "1.0.0",
         "circomlibjs": "0.0.8"
     }
 }
