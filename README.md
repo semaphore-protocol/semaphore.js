@@ -25,6 +25,9 @@
     <a href="https://coveralls.io/github/semaphore-protocol/semaphore.js">
         <img alt="Coveralls" src="https://img.shields.io/coveralls/github/semaphore-protocol/semaphore.js?label=coverage (ts)&style=flat-square&logo=coveralls">
     </a>
+    <a href="https://deepscan.io/dashboard#view=project&tid=16502&pid=22275&bid=655865">
+        <img src="https://deepscan.io/api/teams/16502/projects/22275/branches/655865/badge/grade.svg" alt="DeepScan grade">
+    </a>
     <a href="https://eslint.org/">
         <img alt="Linter eslint" src="https://img.shields.io/badge/linter-eslint-8080f2?style=flat-square&logo=eslint">
     </a>
