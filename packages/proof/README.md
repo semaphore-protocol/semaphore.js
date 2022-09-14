@@ -28,7 +28,7 @@
 
 <div align="center">
     <h4>
-        <a href="https://t.me/joinchat/B-PQx1U3GtAh--Z4Fwo56A">
+        <a href="https://discord.gg/6mSdGHnstH">
             🗣️ Chat &amp; Support
         </a>
         <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
