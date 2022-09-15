@@ -42,7 +42,7 @@ describe("Subgraph", () => {
                             id: "1",
                             depth: 20,
                             zeroValue: 0,
-                            size: 2,
+                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
                         }
@@ -58,7 +58,7 @@ describe("Subgraph", () => {
                 id: "1",
                 depth: 20,
                 zeroValue: 0,
-                size: 2,
+                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
             })
@@ -78,7 +78,7 @@ describe("Subgraph", () => {
                             id: "1",
                             depth: 20,
                             zeroValue: 0,
-                            size: 2,
+                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                             members: [
@@ -115,7 +115,7 @@ describe("Subgraph", () => {
                 id: "1",
                 depth: 20,
                 zeroValue: 0,
-                size: 2,
+                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                 members: ["1", "2"],
@@ -133,7 +133,7 @@ describe("Subgraph", () => {
                             id: "1",
                             depth: 20,
                             zeroValue: 0,
-                            size: 2,
+                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
                         }
@@ -148,7 +148,7 @@ describe("Subgraph", () => {
                 id: "1",
                 depth: 20,
                 zeroValue: 0,
-                size: 2,
+                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286"
             })
@@ -168,7 +168,7 @@ describe("Subgraph", () => {
                             id: "1",
                             depth: 20,
                             zeroValue: 0,
-                            size: 2,
+                            numberOfLeaves: 2,
                             root: "2",
                             admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                             members: [
@@ -204,7 +204,7 @@ describe("Subgraph", () => {
                 id: "1",
                 depth: 20,
                 zeroValue: 0,
-                size: 2,
+                numberOfLeaves: 2,
                 root: "2",
                 admin: "0x7bcd6f009471e9974a77086a69289d16eadba286",
                 members: ["1", "2"],

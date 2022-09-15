@@ -47,11 +47,11 @@ export default class Subgraph {
                         depth
                         zeroValue
                         root
-                        size
+                        numberOfLeaves
                         admin
                         ${
                             members === true
-                                ? `members(orderBy: timestamp) {
+                                ? `members(orderBy: index) {
                             identityCommitment
                         }`
                                 : ""
@@ -111,11 +111,11 @@ export default class Subgraph {
                         depth
                         zeroValue
                         root
-                        size
+                        numberOfLeaves
                         admin
                         ${
                             members === true
-                                ? `members(orderBy: timestamp) {
+                                ? `members(orderBy: index) {
                             identityCommitment
                         }`
                                 : ""
