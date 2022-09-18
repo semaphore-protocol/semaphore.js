@@ -1,3 +1,7 @@
+<h3 align="center">
+    ⚠️ JavaScript libraries were moved to the main <a href="https://github.com/semaphore-protocol/semaphore" target="_blank">Semaphore repository</a>
+</h3>
+
 <p align="center">
     <h1 align="center">
       <picture>
